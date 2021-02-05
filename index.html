@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Roboto:300,300i,700" />
+        <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/27a68a17e6.css" />
+        <link rel="stylesheet" type="text/css" href="css/twemoji-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+        <title>The Roman Calendar</title>
+
+    </head>
+    <body>
+
+        <main>
+            <div class="form" id="formConvert" name="formConvert">
+                <h1>The Roman Calendar</h1>
+                <noscript>
+                    <p class="block">Bitte aktiviere <span style="color: red;">JavaScript</span> in deinem Browser, ansonsten funktioniert dieser Umrechner <span style="color: red;">nicht</span>!</p>
+                </noscript>
+                <script type="text/javascript">
+                    document.write('<p class="block"><a onclick="displayObj(' + "'#infobox_manual'" + ');">Anleitung und FAQ</a></p>');
+                </script>
+                <input type="text" name="dateGregorianDay" class="gregorian" id="gregDay" placeholder="Day" />
+                <input type="text" name="dateGregorianMonth" class="gregorian" id="gregMonth" placeholder="Month" />
+                <input type="text" name="dateGregorianYear" class="gregorian" id="gregYear" placeholder="Year" /><br />
+
+                <button type="submit" name="submit" onclick="runProgramm()">
+                    <i class="fa fa-level-down fa-rotate-180"></i> Convert now! <i class="fa fa-level-down"></i>
+                </button><br />
+
+                <input class="romanText upperCase code" id="romanDate" type="text" name="dateLatin" placeholder="Idibus Martiis MMXVI" readonly />
+            </div>
+            <p><a href="http://fabio-oelschlaeger.de/#bottom" target="_blank">Impressum</a> | v.0.5 <span class="romanText lowerCase">&beta;</span>eta | <a href="http://fabio-oelschlaeger.de/privacy-policy/" target="_blank">Datenschutz</a></p>
+        </main>
+
+        <div id="infobox_manual" class="infobox">
+            <h4>Anleitung und FAQ</h4>
+            <h6 style="color: red;">WICHTIG! DIESE SOFTWARE IST NOCH IN DER BETA!</h6>
+            <p>Was fehlt noch alles?<br />
+            1. Schaltjahre sind zwar schon implementiert, entsprechen aber noch nicht der r&ouml;mischen Darstellung.<br />
+            2. Die Kasus der Monate und Festtage k&ouml;nnten unter Umst&auml;nden nicht korrekt sein.<br />
+            </p>
+
+            <h6>Was sind die Unterschiede zu jetzt und damals?</h6>
+            <p>Heutzutage benutzen wir ein als "gregorianischer Kalender" bekanntes Kalendersystem, benannt nach <span class="romanText">Papst Gregor XIII</span>.<br />
+            Wir teilen das Jahr in zw&ouml;f St&uuml;cke (Monate), in denen wir die Tage durchnummerieren (z.B. 15. M&auml;rz). Bei den R&ouml;mern war das anders. Sie hatten Festtage jeden Monat (<span class="romanText">Kalendae, Nonae, Iden</span>, sogenannte <span class="romanText">Feriae</span>), bis zu denen die Tage gez&auml;hlt wurden (z.B. <span class="romanText">ante diem III idibus martiis</span>).<br />
+            Die Jahre wurden ab dem Gr&uuml;ndungsjahr Roms gez&auml;hlt: <span class="romanText">ab urbe condita (a. u. c.)</span> (753 B.C.).</p>
+            <p>Dieser Umrechner konvertiert das Datum weder in das julianischen, noch in das dezemvirische Kalendersystem. Diese haben andere Monatslängen, andere Jahresanfänge und teilweise auch mittlerweile entfallene Monate.
+            Dieser Umrechner zeigt dir den heutigen Kalender in r&ouml;mischer Schreibweise an.</p>
+
+            <h6>Gab es Schaltjahre?</h6>
+            <p>Ja, Schaltjahre sind schon in fast allen Hochkulturen bekannt gewesen. Die &Auml;gypter beispielsweise hatten schon das 365-t&auml;gige Gemeinjahr und alle vier Jahre einen extra Schalttag, &auml;hnlich unserem Kalender.<br />
+            Im antiken Rom wurde daf&uuml;r anfangs ein kompletter Schaltmonat eingef&uuml;hrt, sp&auml;ter allerdings kam mit dem julianischen Kalender das System, im Schaltjahr den Februar um einen Tag zu verl&auml;ngern. Dazu wurde der sechste Tag vor den Kalenden des M&auml;rz verdoppelt, das hei&szlig;t, es gab den <span class="romanText">sexto kal. mart.</span> zweimal, w&auml;hrend der 25. Februar als solcher benannt wurde und der 24. Februar <span class="romanText">dies intercalaris</span> hie&szlig;.<br />
+            <br />
+            Alternativ wurde der 24. Februar als <span class="romanText">sexto kal. mart.</span> verwendet und der 25. Februar als <span class="romanText">bisexto kal. mart.</span></p>
+
+            <h6>Kann ich das r&ouml;mische Datum in das heute g&auml;ngige gregorianische Datum konvertieren?</h6>
+            <p>Momentan ist dies nicht m&ouml;glich und auch nicht geplant. Eventuell werde ich diese Funktion sp&auml;ter implementieren.</p>
+
+            <h6>Aber... Wozu ist dieser Rechner dann gut?</h6>
+            <p>Ich wei&szlig; auch nicht so recht. Um ehrlich zu sein, hat er nichtmal einen praktischen Nutzen.<br />
+            Vielleicht findet er ja Verwendung f&uuml;r deine Lateinpr&auml;sentation, um cool r&uuml;berzukommen. <span class="twa twa-smiling-face-with-sunglasses"></span><br />
+            Sei kreativ! Lass mich es wissen, wenn du eine coole Verwendung gefunden hast!<p>
+
+            <h6>Darf ich den Quellcode benutzen?</h6>
+            <p>Klar! Lade ihn herunter, analysiere ihn, verbessere/ver&auml;ndere ihn, mach, was auch immer du mit ihm machen willst damit. Du kannst ihn direkt von hier einbetten oder ihn selbst auf deinem Webspace hochladen.<br />
+            <label class="code">Embed-Code (normal):<input type="text" value="http://apps.fabio-oelschlaeger.de/roman-calendar-converter/js/roman.js" readonly /></label>
+            <label class="code">Embed-Code (minified):<input type="text" value="http://apps.fabio-oelschlaeger.de/roman-calendar-converter/js/roman.min.js" readonly /></label>
+            </p>
+
+            <h6>Wer steckt hinter dem Projekt?</h6>
+            <p>Mein Name ist <a href="http://fabio-oelschlaeger.de" target="_blank">Fabio Oelschl&auml;ger <span style="font-family: FontAwesome; font-size: 0.8em; color: #5B5B5B;">&#xf08e;</span></a> und ich bin ein Physik-Student und Hobby-Entwickler aus Stuttgart.</p>
+
+            <h6>Warum hast du dieses Projekt gestartet?</h6>
+            <p>Weil ich ein Latein-Enthusiast war, bin und bleibe.</p>
+
+            <h6>Ich habe einen Fehler gefunden...</h6>
+            <p>Wenn du einen Fehler gefunden hast, <a href="http://fabio-oelschlaeger.de/contact/" target="_blank">kontaktiere</a> mich doch bitte und weise mich darauf hin. Ich werde mich bei der n&auml;chsten Gelegenheit darum k&uuml;mmern.<br />
+            Bitte bedenke, dass ich f&uuml;r die Richtigkeit des Umrechners keine Gew&auml;hrleistung geben kann.</p>
+
+            <p style="text-align: right;"><a onclick="hideObj('#infobox_manual');">Fenster schließen</a></p>
+
+            <div class="closeIcon" onclick="hideObj('#infobox_manual')"><i class="fa fa-times fa-fw"></i></div>
+        </div>
+
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script><!-- JQUERY CDN -->
+    <script>window.jQuery || document.write('<script src="js/jquery-3.1.1.min.js"><\/script>')</script><!-- JQUERY FALLBACK -->
+    <script src="js/roman.min.js" type="text/javascript"></script>
+    <script src="js/script.min.js" type="text/javascript"></script>
+    </body>
+</html>

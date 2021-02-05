@@ -1,0 +1,12 @@
+Monat		Zahl	Nonen	Iden
+März        03		7       15
+Mai         05		7       15
+Juli		07      7       15
+October		10      7       15
+
+Ansonsten           5       13
+
+Kalenden am Neumond
+Nonen am zunehmenden Halbmond (8 Tage vor den Iden)
+Iden am Vollmond
+Terminaliae am abnehmenden Halbmond (9 Tage nach den Iden) => Keine besondere Bedeutung, da keine offiziellen Festtage
