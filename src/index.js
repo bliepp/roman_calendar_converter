@@ -7,9 +7,7 @@ window.addEventListener("load", () => {
 	const day = form.querySelector("form input#day");
 	const month = form.querySelector("form input#month");
 	const year = form.querySelector("form input#year");
-
-	const submit = form.querySelector("button[type=submit");
-	const output = form.querySelectorAll("input:read-only");
+	const output = form.querySelector("input:read-only");
 
 	// set default values
 	let now = new Date();
@@ -33,6 +31,6 @@ window.addEventListener("load", () => {
         `.split("\n").map(s => s.trim()).join("");
 		let date = Date.parse(dateString);
 
-		console.log(date)
+		output.value = date;
 	});
 });
