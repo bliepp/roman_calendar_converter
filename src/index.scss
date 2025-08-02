@@ -77,6 +77,24 @@ input {
 	color: rgba(0, 0, 0, 0.4);
 }
 
+.noscript {
+	@include toon-shadow(#CE0000, $intensity: 10%);
+	background-color: #CE0000;
+
+	display: block;
+	margin: 1rem auto;
+	padding: 1.5rem;
+	border-radius: 0.3rem;
+
+	width: calc(100vw - 3rem);
+	max-width: 1250px;
+
+	text-align: center;
+	font-weight: 700;
+	font-size: 24px;
+	color: white;
+}
+
 form {
 	@include toon-shadow(#DADADA, $additional: 0 1rem 1rem -1rem rgba(0, 0, 0, 0.7));
 	background-color: #DADADA;
