@@ -4,9 +4,9 @@ import "./index.scss";
 window.addEventListener("load", () => {
 	// get DOM elements
 	const form = document.querySelector("form");
-	const day = form.querySelector("form input#day");
-	const month = form.querySelector("form input#month");
-	const year = form.querySelector("form input#year");
+	const day = form.querySelector("input#day");
+	const month = form.querySelector("input#month");
+	const year = form.querySelector("input#year");
 	const output = form.querySelector("input:read-only");
 
 	// set default values
