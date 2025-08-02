@@ -1,3 +1,4 @@
+import { IntToRoman } from "./converter";
 import "./index.scss";
 
 
@@ -7,6 +8,7 @@ window.addEventListener("load", () => {
 	const day = form.querySelector("input#day");
 	const month = form.querySelector("input#month");
 	const year = form.querySelector("input#year");
+	const submit = form.querySelector("button[type=submit");
 	const output = form.querySelector("input:read-only");
 
 	// set default values
@@ -29,8 +31,10 @@ window.addEventListener("load", () => {
             -${month.value || month.placeholder}
             -${day.value || day.placeholder}
         `.split("\n").map(s => s.trim()).join("");
-		let date = Date.parse(dateString);
+		let date = new Date(Date.parse(dateString));
 
-		output.value = date;
+		output.value = IntToRoman(date.getFullYear());
 	});
+
+	submit.click(); // submit once on page load
 });
