@@ -25,7 +25,15 @@ a {
 	&:hover, &:active, &:focus {text-decoration: underline;}
 }
 
+@mixin fullwidth() {
+	width: calc(100vw - 3rem);
+	max-width: 1250px;
+	margin: 0 auto;
+}
+
 @mixin toon-shadow($color, $intensity: 4%, $invert: false, $additional: null) {
+	background-color: $color;
+
 	$invertFactor: 1;
 	@if $invert {
 		$invertFactor: -1;
@@ -41,12 +49,10 @@ a {
 @mixin form-element($color, $intensity: 4%, $invert: false) {
 	@include toon-shadow($color, $intensity: $intensity, $invert: $invert);
 
-	padding: 1rem;
 	border: 0;
 	outline: 0;
+	padding: 1rem;
 	border-radius: 0.3rem;
-
-	background-color: $color;
 }
 
 @mixin roman-text($color: null, $engraved: false) {
@@ -77,17 +83,14 @@ input {
 	color: rgba(0, 0, 0, 0.4);
 }
 
-.noscript {
+noscript {
+	@include fullwidth();
 	@include toon-shadow(#CE0000, $intensity: 10%);
-	background-color: #CE0000;
 
 	display: block;
-	margin: 1rem auto;
 	padding: 1.5rem;
+	margin-top: 1rem;
 	border-radius: 0.3rem;
-
-	width: calc(100vw - 3rem);
-	max-width: 1250px;
 
 	text-align: center;
 	font-weight: 700;
@@ -96,18 +99,15 @@ input {
 }
 
 form {
+	@include fullwidth();
 	@include toon-shadow(#DADADA, $additional: 0 1rem 1rem -1rem rgba(0, 0, 0, 0.7));
-	background-color: #DADADA;
 
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
 	padding: 1.5rem;
 
-	margin: 3rem auto 0;
-
-	width: calc(100vw - 3rem);
-	max-width: 1250px;
+	margin-top: 3rem;
 
 	border-radius: 0.3rem;
 	text-align: center;
@@ -139,7 +139,10 @@ form {
 }
 
 footer {
-	margin: 1rem auto;
+	@include fullwidth();
+
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 	text-align: center;
 
 	padding: 0 1.5rem;
@@ -147,9 +150,6 @@ footer {
 	display: flex;
 	justify-content: space-between;
 	gap: 1rem;
-
-	width: calc(100vw - 3rem);
-	max-width: 1250px;
 
 	& > * {flex: 1 1 0px;}
 
