@@ -17,6 +17,11 @@ window.addEventListener("load", () => {
 	month.placeholder = ("0" + (now.getMonth() + 1).toString()).slice(-2);
 	year.placeholder = now.getFullYear().toString();
 
+	// select text on click on read-only fields
+	document.querySelectorAll("input.select").forEach(e => {
+		e.addEventListener("click", () => e.select());
+	});
+
 	// do something on form submit
 	form.addEventListener("submit", (e) => {
 		e.preventDefault();
