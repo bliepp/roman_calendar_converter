@@ -63,5 +63,36 @@ export function GetLatinMonthName(month, case_) {
 }
 
 export function DateToRoman(date) {
+	let lengthOfMonth = [31, IsLeapYear(date) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+	let kalendae = 1, nonae = 5, idus = 13;
 
+	let day = date.getDate(), month = date.getMonth() + 1, year = date.getFullYear();
+
+	if (month === 3 || month === 5 || month === 7 || month == 10) {
+		// shift nonae and idus in March, May, July and October
+		nonae = 7;
+		idus = 15;
+	}
+
+	// TODO: check if date is valid?
+
+	// check for special days
+	if (day === kalendae)
+		return `Kalendis ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
+	if (day === nonae)
+		return `Nonis ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
+	if (day === idus)
+		return `Idibus ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
+
+	if (day > idus) { // after idus, before kalendae
+		// return ante diem kalendas of next month => (month+1)!
+		// also year+1 if current month is 12 (december)
+	} else if (day > nonae) { // after nonae, but before idus
+		// return ante diem idus
+	} else { // after kalendae, but before nonae => if (day > kalendae)
+		// return ante diem nonas
+	}
+
+	// TODO: rename ante diem II to pridie
+	// TODO: correctly name days of leap year
 }
