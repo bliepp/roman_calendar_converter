@@ -7,9 +7,12 @@
     "start": "vite",
     "test": "vitest",
     "build": "vite build && rm ./dist/amphitheatre_.jpg",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist --no-history --nojekyll",
+    "deploy:official": "npm run deploy -- --cname roman-calendar.bliepp.de"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "sass": "^1.89.2",
     "vite": "^7.0.4",
     "vitest": "^3.2.4"
