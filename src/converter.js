@@ -63,9 +63,11 @@ export function GetLatinMonthName(month, case_) {
 }
 
 export function DateToRoman(date) {
-	let lengthOfMonth = [31, IsLeapYear(date) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
 	let day = date.getDate(), month = date.getMonth() + 1, year = date.getFullYear();
+
+	// length of month by getting the day before first day of next month
+	// remember: month is 0-based index, and month = date.getMonth() + 1 is 1-based index
+	let lengthOfMonth = (new Date(year, month, 0)).getDate();
 
 	// shift nonae and idus in March, May, July and October
 	let isShiftedMonth = (month === 3 || month === 5 || month === 7 || month == 10);
@@ -89,7 +91,7 @@ export function DateToRoman(date) {
 	// after idus, before kalendae
 	if (day > idus) { // (remember: month -> month+1, in December also year -> year+1)
 		return rewritePridie(
-			`Ante diem ${IntToRoman(lengthOfMonth[month-1] - day + 2)} ` +
+			`Ante diem ${IntToRoman(lengthOfMonth - day + 2)} ` +
 			`Kalendas ${GetLatinMonthName(month + 1, CASE.ACCUSATIVE)} ` +
 			`${IntToRoman(month == 12 ? year+1 : year)}`
 		)
