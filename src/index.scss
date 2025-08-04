@@ -81,6 +81,10 @@ button {
 input {
 	@include form-element(#FDFDFD, $invert: true);
 	color: rgba(0, 0, 0, 0.4);
+
+	&:disabled {
+		@include form-element(#d86969, $invert: true)
+	}
 }
 
 noscript {

@@ -5,17 +5,17 @@ import "./index.scss";
 window.addEventListener("load", () => {
 	// get DOM elements
 	const form = document.querySelector("form");
-	const day = form.querySelector("input#day");
-	const month = form.querySelector("input#month");
-	const year = form.querySelector("input#year");
-	const submit = form.querySelector("button[type=submit");
-	const output = form.querySelector("input:read-only");
+	const dayField = form.querySelector("input#day");
+	const monthField = form.querySelector("input#month");
+	const yearField = form.querySelector("input#year");
+	const submitBtn = form.querySelector("button[type=submit");
+	const outputField = form.querySelector("input:read-only");
 
 	// set default values
 	let now = new Date();
-	day.placeholder = ("0" + now.getDate().toString()).slice(-2);
-	month.placeholder = ("0" + (now.getMonth() + 1).toString()).slice(-2);
-	year.placeholder = now.getFullYear().toString();
+	dayField.placeholder = ("0" + now.getDate().toString()).slice(-2);
+	monthField.placeholder = ("0" + (now.getMonth() + 1).toString()).slice(-2);
+	yearField.placeholder = now.getFullYear().toString();
 
 	// select text on click on read-only fields
 	document.querySelectorAll("input.select").forEach(e => {
@@ -26,12 +26,32 @@ window.addEventListener("load", () => {
 	form.addEventListener("submit", (e) => {
 		e.preventDefault();
 
-		output.value = DateToRoman(new Date(
-			(year.value || year.placeholder),
-			(month.value || month.placeholder) - 1, // month is index in Date object
-			(day.value || day.placeholder),
-		));
+		// get field values
+		let year = parseInt(yearField.value || yearField.placeholder),
+			month = parseInt(monthField.value || monthField.placeholder),
+			day = parseInt(dayField.value || dayField.placeholder);
+
+		// get correct Date object
+		let date = new Date(year, month - 1, day); // month is index in Date object
+		date.setFullYear(year); // needed so the years 0-99 do not map to 1900-1999
+
+		// convert or show error messages
+		try {
+			if (month < 1 || month > 12) {
+				throw "Month must be between 1 and 12"
+			}
+
+			if (date.getMonth() !== month - 1) { // only happening if day is <= 0 or more than month's highest date
+				throw `Day must be between 1 and ${(new Date(year, month, 0)).getDate()} for ${(new Date(year, month, 0)).toLocaleString('en', { month: 'long' })}`
+			}
+
+			outputField.value = DateToRoman(date);
+			outputField.removeAttribute("disabled");
+		} catch (error) {
+			outputField.value = error;
+			outputField.setAttribute("disabled", "");
+		}
 	});
 
-	submit.click(); // submit once on page load
+	submitBtn.click(); // submit once on page load
 });
