@@ -37,6 +37,10 @@ window.addEventListener("load", () => {
 
 		// convert or show error messages
 		try {
+			if (year <= 0) {
+				throw "Year must be a positive integer"
+			}
+
 			if (month < 1 || month > 12) {
 				throw "Month must be between 1 and 12"
 			}
