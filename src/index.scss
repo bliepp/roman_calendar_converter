@@ -127,8 +127,9 @@ form {
 		flex-shrink: 0;
 		text-align: center;
 
-		&#output {
+		&:read-only { // output field
 			@include roman-text();
+			text-transform: uppercase;
 		}
 	}
 

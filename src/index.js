@@ -1,4 +1,4 @@
-import { IntToRoman } from "./converter";
+import { DateToRoman } from "./converter";
 import "./index.scss";
 
 
@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
         `.split("\n").map(s => s.trim()).join("");
 		let date = new Date(Date.parse(dateString));
 
-		output.value = IntToRoman(date.getFullYear());
+		output.value = DateToRoman(date);
 	});
 
 	submit.click(); // submit once on page load
