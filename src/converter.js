@@ -73,8 +73,6 @@ export function DateToRoman(date) {
 		nonae = isShiftedMonth ? 7 : 5,
 		idus = isShiftedMonth ? 15 : 13;
 
-	// TODO: check if date is valid?
-
 	// check for special days
 	if (day === kalendae)
 		return `Kalendis ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
@@ -84,6 +82,8 @@ export function DateToRoman(date) {
 		return `Idibus ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
 
 	// TODO: correctly name days of leap year
+
+	// ante diem II was called pridie (the day of the holiday was also counted)
 	const rewritePridie = s => s.replace("Ante diem II ", "Pridie ")
 
 	// after idus, before kalendae
