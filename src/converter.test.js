@@ -49,9 +49,11 @@ test("Leap year checker", () => {
 	expect(two_thousand_and_one).toBeFalsy();
 	expect(eighteen_hundred).toBeFalsy();
 
-	// test Date object
-	let two_thousand_four = IsLeapYear(new Date(2004, 1, 1))
+	// test Date object, reminder: month is index starting at 0
+	let two_thousand_four = IsLeapYear(new Date(2004, 0, 1)),
+		two_thousand_three = IsLeapYear(new Date(2003, 11, 31));
 	expect(two_thousand_four).toBeTruthy();
+	expect(two_thousand_three).toBeFalsy();
 });
 
 test("Latin month name", () => {
@@ -71,4 +73,61 @@ test("Latin month name", () => {
 
 	// invalid case
 	expect(() => GetLatinMonthName(0, "")).toThrowError();
+});
+
+test("Date converter", () => {
+	let non_leap_year = 2025, non_leap_year_roman = IntToRoman(non_leap_year);
+
+	/* REMEMBER! VERY IMPORTANT!
+	   Date object's month is an index, so January is 0, February is 1, ..., December is 11
+	   Highly confusing, really
+	 */
+
+	// special days of regular months, e.g. August
+	let kalendis = DateToRoman(new Date(non_leap_year, 7, 1)),
+		nonis = DateToRoman(new Date(non_leap_year, 7, 5)),
+		idibus = DateToRoman(new Date(non_leap_year, 7, 13));
+
+	// should be ablative
+	expect(kalendis).toBe(`Kalendis Augustas/Sextilibus ${non_leap_year_roman}`);
+	expect(nonis).toBe(`Nonis Augustas/Sextilibus ${non_leap_year_roman}`);
+	expect(idibus).toBe(`Idibus Augustas/Sextilibus ${non_leap_year_roman}`);
+
+
+	// special days of special months, e.g. July
+	let kalendis2 = DateToRoman(new Date(non_leap_year, 6, 1)),
+		nonis2 = DateToRoman(new Date(non_leap_year, 6, 7)),
+		idibus2 = DateToRoman(new Date(non_leap_year, 6, 15));
+
+	// should be ablative
+	expect(kalendis2).toBe(`Kalendis Iuliis/Quintilibus ${non_leap_year_roman}`);
+	expect(nonis2).toBe(`Nonis Iuliis/Quintilibus ${non_leap_year_roman}`);
+	expect(idibus2).toBe(`Idibus Iuliis/Quintilibus ${non_leap_year_roman}`);
+
+
+	// before special days, one mid-month holiday, one date from the month before
+	let pridie_kalendas = DateToRoman(new Date(non_leap_year, 6, 31)),
+		ante_diem_3_kalendas = DateToRoman(new Date(non_leap_year, 6, 30)),
+		pridie_idus = DateToRoman(new Date(non_leap_year, 2, 14)),
+		ante_diem_3_idus = DateToRoman(new Date(non_leap_year, 2, 13)),
+		pridie_nonas = DateToRoman(new Date(non_leap_year, 0, 4)),
+		ante_diem_3_nonas = DateToRoman(new Date(non_leap_year, 0, 3));
+
+	expect(pridie_kalendas).toBe(`Pridie Kalendas Augustas/Sextilis ${non_leap_year_roman}`);
+	expect(ante_diem_3_kalendas).toBe(`Ante diem III Kalendas Augustas/Sextilis ${non_leap_year_roman}`);
+	expect(pridie_idus).toBe(`Pridie Idus Martias ${non_leap_year_roman}`);
+	expect(ante_diem_3_idus).toBe(`Ante diem III Idus Martias ${non_leap_year_roman}`);
+	expect(pridie_nonas).toBe(`Pridie Nonas Ianuarias ${non_leap_year_roman}`);
+	expect(ante_diem_3_nonas).toBe(`Ante diem III Nonas Ianuarias ${non_leap_year_roman}`);
+
+
+	// check newyear
+	let pridie_newyear = DateToRoman(new Date(non_leap_year, 11, 31)),
+		ante_diem_3_newyear = DateToRoman(new Date(non_leap_year, 11, 30));
+
+	expect(pridie_newyear).toBe(`Pridie Kalendas Ianuarias ${IntToRoman(non_leap_year+1)}`);
+	expect(ante_diem_3_newyear).toBe(`Ante diem III Kalendas Ianuarias ${IntToRoman(non_leap_year+1)}`);
+
+
+	// TODO: check leap year result
 });

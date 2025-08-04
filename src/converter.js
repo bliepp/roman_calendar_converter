@@ -64,15 +64,14 @@ export function GetLatinMonthName(month, case_) {
 
 export function DateToRoman(date) {
 	let lengthOfMonth = [31, IsLeapYear(date) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	let kalendae = 1, nonae = 5, idus = 13;
 
 	let day = date.getDate(), month = date.getMonth() + 1, year = date.getFullYear();
 
-	if (month === 3 || month === 5 || month === 7 || month == 10) {
-		// shift nonae and idus in March, May, July and October
-		nonae = 7;
-		idus = 15;
-	}
+	// shift nonae and idus in March, May, July and October
+	let isShiftedMonth = (month === 3 || month === 5 || month === 7 || month == 10);
+	let kalendae = 1,
+		nonae = isShiftedMonth ? 7 : 5,
+		idus = isShiftedMonth ? 15 : 13;
 
 	// TODO: check if date is valid?
 
@@ -84,15 +83,29 @@ export function DateToRoman(date) {
 	if (day === idus)
 		return `Idibus ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
 
-	if (day > idus) { // after idus, before kalendae
-		// return ante diem kalendas of next month => (month+1)!
-		// also year+1 if current month is 12 (december)
-	} else if (day > nonae) { // after nonae, but before idus
-		// return ante diem idus
-	} else { // after kalendae, but before nonae => if (day > kalendae)
-		// return ante diem nonas
+	// TODO: correctly name days of leap year
+	const rewritePridie = s => s.replace("Ante diem II ", "Pridie ")
+
+	// after idus, before kalendae
+	if (day > idus) { // (remember: month -> month+1, in December also year -> year+1)
+		return rewritePridie(
+			`Ante diem ${IntToRoman(lengthOfMonth[month-1] - day + 2)} ` +
+			`Kalendas ${GetLatinMonthName(month + 1, CASE.ACCUSATIVE)} ` +
+			`${IntToRoman(month == 12 ? year+1 : year)}`
+		)
 	}
 
-	// TODO: rename ante diem II to pridie
-	// TODO: correctly name days of leap year
+	// after nonae, but before idus
+	if (day > nonae) {
+		return rewritePridie(
+			`Ante diem ${IntToRoman(idus - day + 1)} Idus ` +
+			`${GetLatinMonthName(month, CASE.ACCUSATIVE)} ${IntToRoman(year)}`
+		)
+	}
+
+	// after kalendae, but before nonae => like "if (day > kalendae)"
+	return rewritePridie(
+		`Ante diem ${IntToRoman(nonae - day + 1)} Nonas ` +
+		`${GetLatinMonthName(month, CASE.ACCUSATIVE)} ${IntToRoman(year)}`
+	)
 }
