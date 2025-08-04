@@ -26,14 +26,11 @@ window.addEventListener("load", () => {
 	form.addEventListener("submit", (e) => {
 		e.preventDefault();
 
-		let dateString = `
-            ${year.value || year.placeholder}
-            -${month.value || month.placeholder}
-            -${day.value || day.placeholder}
-        `.split("\n").map(s => s.trim()).join("");
-		let date = new Date(Date.parse(dateString));
-
-		output.value = DateToRoman(date);
+		output.value = DateToRoman(new Date(
+			(year.value || year.placeholder),
+			(month.value || month.placeholder) - 1, // month is index in Date object
+			(day.value || day.placeholder),
+		));
 	});
 
 	submit.click(); // submit once on page load
