@@ -18,12 +18,8 @@ export function IntToRoman(n) {
 		throw "\"n\" need to be an integer"
 	}
 
-	if (n < 0) {
-		throw "\"n\" needs to be non-negative integer"
-	}
-
-	if (n === 0) {
-		return "0"
+	if (n <= 0) {
+		throw "\"n\" needs to be a positive integer"
 	}
 
 	let out = "";
@@ -37,6 +33,15 @@ export function IntToRoman(n) {
 	}
 
 	return out;
+}
+
+function YearToRoman(year) {
+	// just some renaming of the errors
+	try {
+		return IntToRoman(year)
+	} catch (error) {
+		throw error.replace("\"n\"", "Year")
+	}
 }
 
 export function IsLeapYear(year) {
@@ -77,11 +82,11 @@ export function DateToRoman(date) {
 
 	// check for special days
 	if (day === kalendae)
-		return `Kalendis ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
+		return `Kalendis ${GetLatinMonthName(month, CASE.ABLATIVE)} ${YearToRoman(year)}`
 	if (day === nonae)
-		return `Nonis ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
+		return `Nonis ${GetLatinMonthName(month, CASE.ABLATIVE)} ${YearToRoman(year)}`
 	if (day === idus)
-		return `Idibus ${GetLatinMonthName(month, CASE.ABLATIVE)} ${IntToRoman(year)}`
+		return `Idibus ${GetLatinMonthName(month, CASE.ABLATIVE)} ${YearToRoman(year)}`
 
 	// TODO: correctly name days of leap year
 
@@ -93,7 +98,7 @@ export function DateToRoman(date) {
 		return rewritePridie(
 			`Ante diem ${IntToRoman(lengthOfMonth - day + 2)} ` +
 			`Kalendas ${GetLatinMonthName(month + 1, CASE.ACCUSATIVE)} ` +
-			`${IntToRoman(month == 12 ? year+1 : year)}`
+			`${YearToRoman(month == 12 ? year+1 : year)}`
 		)
 	}
 
@@ -101,13 +106,13 @@ export function DateToRoman(date) {
 	if (day > nonae) {
 		return rewritePridie(
 			`Ante diem ${IntToRoman(idus - day + 1)} Idus ` +
-			`${GetLatinMonthName(month, CASE.ACCUSATIVE)} ${IntToRoman(year)}`
+			`${GetLatinMonthName(month, CASE.ACCUSATIVE)} ${YearToRoman(year)}`
 		)
 	}
 
 	// after kalendae, but before nonae => like "if (day > kalendae)"
 	return rewritePridie(
 		`Ante diem ${IntToRoman(nonae - day + 1)} Nonas ` +
-		`${GetLatinMonthName(month, CASE.ACCUSATIVE)} ${IntToRoman(year)}`
+		`${GetLatinMonthName(month, CASE.ACCUSATIVE)} ${YearToRoman(year)}`
 	)
 }

@@ -33,10 +33,7 @@ test("Roman number converter", () => {
 	expect(high3).toBe("CDXCVII");
 
 	// test edge cases
-	let zero = IntToRoman(0);
-	expect(zero).toBe("0");
-
-	expect(() => IntToRoman(-2462)).toThrowError("\"n\" needs to be non-negative integer")
+	expect(() => IntToRoman(-2462)).toThrowError("\"n\" needs to be a positive integer")
 	expect(() => IntToRoman(3.142)).toThrowError("\"n\" need to be an integer")
 });
 
